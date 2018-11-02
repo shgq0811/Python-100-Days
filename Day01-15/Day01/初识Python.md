@@ -47,31 +47,43 @@ Linux环境自带了Python 2.x版本，但是如果要更新到3.x的版本，�
 安装依赖库（因为没有这些依赖库可能在源代码构件安装时因为缺失底层依赖库而失败）。
 
 ```Shell
-yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
+yum -y install wget gcc zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel
 ```
 
 下载Python源代码并解压缩到指定目录。
 
 ```Shell
-wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tar.xz
-xz -d Python-3.6.1.tar.xz
-tar -xvf Python-3.6.1.tar
+wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
+xz -d Python-3.7.0.tar.xz
+tar -xvf Python-3.7.0.tar
 ```
 
 切换至Python源代码目录并执行下面的命令进行配置和安装。
 
 ```Shell
-cd Python-3.6.1
-./configure --prefix=/usr/local/python3.6 --enable-optimizations
+cd Python-3.7.0
+./configure --prefix=/usr/local/python37 --enable-optimizations
 make && make install
 ```
 
-创建软链接，这样就可以直接通过python3直接启动Python解释器。
+修改用户主目录下名为.bash_profile的文件，配置PATH环境变量并使其生效。
 
 ```Shell
-ln -s /usr/local/python3.6/bin/python3 /usr/bin/python3
+cd ~
+vim .bash_profile
 ```
 
+```Shell
+# ... 此处省略上面的代码 ...
+
+export PATH=$PATH:/usr/local/python37/bin
+
+# ... 此处省略下面的代码 ...
+```
+
+```Shell
+source .bash_profile
+```
 
 #### MacOS环境
 
@@ -120,14 +132,12 @@ python hello.py
 
 ```Python
 """
-
 第一个Python程序 - hello, world!
 向伟大的Dennis M. Ritchie先生致敬
 
 Version: 0.1
 Author: 骆昊
 Date: 2018-02-26
-
 """
 
 print('hello, world!')
@@ -213,7 +223,7 @@ PyCharm的安装、配置和使用我们在后面会进行介绍。
 
     ```Python
     import this
-
+    
     Beautiful is better than ugly.
     Explicit is better than implicit.
     Simple is better than complex.
@@ -239,7 +249,7 @@ PyCharm的安装、配置和使用我们在后面会进行介绍。
 
     ```Python
     import turtle
-
+    
     turtle.pensize(4)
     turtle.pencolor('red')
     turtle.forward(100)
